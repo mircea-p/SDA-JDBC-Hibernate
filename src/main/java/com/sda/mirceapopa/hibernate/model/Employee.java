@@ -2,6 +2,8 @@ package com.sda.mirceapopa.hibernate.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "employees")
@@ -24,7 +26,6 @@ public class Employee {
     @Column(name = "salary")
     private Integer salary;
 
-
     @OneToOne
     @JoinColumn(name = "account_id") // account_id este in baza de date.
     private Account account;
@@ -33,7 +34,14 @@ public class Employee {
     @JoinColumn(name = "departmentId") // asa apare in baza de date
     private Department department;
 
+    @ManyToMany
+    @JoinTable(name = "employees_project",
+    joinColumns = {@JoinColumn(name = "employeeId")},
+    inverseJoinColumns = {@JoinColumn(name = "projectId")})
+    private Set<Project> projectSet = new HashSet<>();
 
+
+//----------------------------------------------------------------------------------------------------------------
 
     public Integer getEmployeeId() {
         return employeeId;
@@ -91,8 +99,6 @@ public class Employee {
         this.salary = salary;
     }
 
-
-
     public Account getAccount() {
         return account;
     }
@@ -107,6 +113,14 @@ public class Employee {
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    public Set<Project> getProjectSet() {
+        return projectSet;
+    }
+
+    public void setProjectSet(Set<Project> projectSet) {
+        this.projectSet = projectSet;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.sda.mirceapopa.hibernate.model;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "project")
@@ -20,6 +21,10 @@ public class Project {
     @Enumerated(EnumType.STRING) // special pt enumuri, tipul: String sau Ordinal, se recomanda String.
     @Column(name = "type")
     private ProjectType projectType;
+
+    @ManyToMany(mappedBy = "projectSet")
+    private Set<Employee> employeeSet;
+
 
 
     public Integer getProjectId() {
@@ -50,6 +55,7 @@ public class Project {
         return currency;
     }
 
+
     public void setCurrency(String currency) {
         this.currency = currency;
     }
@@ -60,6 +66,14 @@ public class Project {
 
     public void setProjectType(ProjectType projectType) {
         this.projectType = projectType;
+    }
+
+    public Set<Employee> getEmployeeSet() {
+        return employeeSet;
+    }
+
+    public void setEmployeeSet(Set<Employee> employeeSet) {
+        this.employeeSet = employeeSet;
     }
 
     @Override

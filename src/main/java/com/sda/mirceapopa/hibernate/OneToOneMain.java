@@ -78,7 +78,7 @@ public class OneToOneMain {
 
         System.out.println(employeeRepository.findById(1));
         System.out.println(employeeRepository.findById(2));
-        
+
 
         SessionManager.shutDown(); // sterge baza de date si opreste hibernat-ul, si toate procesele lui.
 
