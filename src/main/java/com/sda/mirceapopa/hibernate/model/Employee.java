@@ -23,10 +23,15 @@ public class Employee {
     private String email;
     @Column(name = "salary")
     private Integer salary;
-    @Column(name = "departmentId")
-    private Integer departmentId;
-    @Column(name = "managerId")
-    private Integer managerId;
+
+
+    @OneToOne
+    @JoinColumn(name = "account_id") // account_id este in baza de date.
+    private Account account;
+
+    @ManyToOne
+    @JoinColumn(name = "departmentId") // asa apare in baza de date
+    private Department department;
 
 
 
@@ -86,19 +91,35 @@ public class Employee {
         this.salary = salary;
     }
 
-    public Integer getDepartmentId() {
-        return departmentId;
+
+
+    public Account getAccount() {
+        return account;
     }
 
-    public void setDepartmentId(Integer departmentId) {
-        this.departmentId = departmentId;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
-    public Integer getManagerId() {
-        return managerId;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setManagerId(Integer managerId) {
-        this.managerId = managerId;
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employeeId=" + employeeId +
+                ", firstname='" + firstname + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", salary=" + salary +
+                ", account=" + account +
+                '}';
     }
 }
