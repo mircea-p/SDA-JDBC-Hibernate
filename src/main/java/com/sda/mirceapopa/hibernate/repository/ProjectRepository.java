@@ -5,6 +5,9 @@ import com.sda.mirceapopa.hibernate.model.Project;
 import com.sda.mirceapopa.hibernate.utils.SessionManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
+import java.util.List;
 
 public class ProjectRepository {
 
@@ -47,4 +50,15 @@ public class ProjectRepository {
         session.close();
 
     }
+    public List<Project> displayAllProjects(){
+
+        Session session = SessionManager.getSessionFactory().openSession();
+        String displayAllProjectsQuery = "FROM Project";
+        Query<Project> projectQuery = session.createQuery(displayAllProjectsQuery);
+        List<Project> projectList = projectQuery.list();
+        session.close();
+        return projectList;
+
+    }
+
 }

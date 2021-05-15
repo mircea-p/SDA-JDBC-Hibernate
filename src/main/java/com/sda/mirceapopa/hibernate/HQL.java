@@ -5,6 +5,8 @@ import com.sda.mirceapopa.hibernate.model.Department;
 import com.sda.mirceapopa.hibernate.model.Employee;
 import com.sda.mirceapopa.hibernate.repository.DepartmentRepository;
 import com.sda.mirceapopa.hibernate.repository.EmployeeRepository;
+import com.sda.mirceapopa.hibernate.utils.SessionManager;
+import org.hibernate.Session;
 
 import java.sql.Date;
 
@@ -44,10 +46,10 @@ public class HQL {
 
         employeeRepository.save(employee1,account1);
 
-        employeeRepository.findAllEmployeesFromDepartment("Marcheting").forEach(employee -> System.out.println(employee));
+        employeeRepository.findAllEmployeesFromDepartment("Marcheting").forEach(System.out::println);
 
 
-
+        SessionManager.shutDown();
     }
 
 }

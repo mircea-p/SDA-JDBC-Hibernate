@@ -16,7 +16,7 @@ public class ManyToManyMain {
         DepartmentRepository departmentRepository = new DepartmentRepository();// creez obiect ca sa pot apela metodele
 
         Department department1 = new Department();
-        department1.setName("Marcheting");
+        department1.setName("Finance");
         Department department2 = new Department();
         department2.setName("HR");
         Department department3 = new Department();
@@ -101,6 +101,30 @@ public class ManyToManyMain {
 
         //-----------------------------------------------------------------------------------------------
 
+        // 1.Display all projects:
+        System.out.println("1.Display all projects:\n----------------------------------------------------------");
+
+        projectRepository.displayAllProjects().forEach(System.out::println);
+
+        // 2.Display all employees:
+        System.out.println("2.Display all employees:\n----------------------------------------------------------");
+
+        employeeRepository.displayAllEmployees().forEach(System.out::println);
+
+        // 3. Display all employees with names starting with the letter J.
+        System.out.println("3. Display all employees with names starting with the letter J:\n----------------------------------------------------------");
+
+        employeeRepository.displayAllEmployeesWithLetter("V").forEach(System.out::println);
+
+        // 4. Display all employees working in the Finance department.
+        System.out.println("4. Display all employees working in the Finance department:\n----------------------------------------------------------");
+
+        employeeRepository.findAllEmployeesFromDepartment("Finance").forEach(System.out::println);
+
+        // 5. Display all employees alphabetically:
+        System.out.println("5. Display all employees alphabetically:\n----------------------------------------------------------");
+
+        employeeRepository.displayAllEmployeesAlphabetically().forEach(System.out::println);
         SessionManager.shutDown();
 
     }

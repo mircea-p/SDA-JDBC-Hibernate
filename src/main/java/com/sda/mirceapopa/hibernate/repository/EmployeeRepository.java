@@ -2,6 +2,7 @@ package com.sda.mirceapopa.hibernate.repository;
 import com.sda.mirceapopa.hibernate.model.Account;
 import com.sda.mirceapopa.hibernate.model.Department;
 import com.sda.mirceapopa.hibernate.model.Employee;
+import com.sda.mirceapopa.hibernate.model.Project;
 import com.sda.mirceapopa.hibernate.utils.SessionManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -55,6 +56,39 @@ public class EmployeeRepository {
         Query<Employee> employeeQuery = session.createQuery(hqlQuery);
         employeeQuery.setParameter("departmentName", departmentName);
         List<Employee> employeeList = employeeQuery.list(); // da rezultatul la Query, afiseaza rezultatul(list)
+        session.close();
+        return employeeList;
+
+    }
+    public List<Employee> displayAllEmployees(){
+
+        Session session = SessionManager.getSessionFactory().openSession();
+        String displayAllEmployeesQuery = "FROM Employee";
+        Query<Employee> employeeQuery = session.createQuery(displayAllEmployeesQuery);
+        List<Employee> employeeList = employeeQuery.list();
+        session.close();
+        return employeeList;
+
+    }
+
+    public List<Employee> displayAllEmployeesWithLetter(String letter){
+
+        Session session = SessionManager.getSessionFactory().openSession();
+        String displayAllEmployeesWithLetterQuery = "FROM Employee e where e.firstname like '%M%'";
+        Query<Employee> employeeQuery = session.createQuery(displayAllEmployeesWithLetterQuery);
+       // employeeQuery.setParameter("letter", letter);
+        List<Employee> employeeList = employeeQuery.list();
+        session.close();
+        return employeeList;
+
+    }
+
+    public List<Employee> displayAllEmployeesAlphabetically(){
+
+        Session session = SessionManager.getSessionFactory().openSession();
+        String displayAllEmployeesQuery = "FROM Employee e order by e.firstname desc";
+        Query<Employee> employeeQuery = session.createQuery(displayAllEmployeesQuery);
+        List<Employee> employeeList = employeeQuery.list();
         session.close();
         return employeeList;
 
