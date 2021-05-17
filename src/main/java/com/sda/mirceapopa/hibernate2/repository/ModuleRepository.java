@@ -16,20 +16,11 @@ public class ModuleRepository {
     public void save(Module module,Classroom classroom){
         Session session = SessionManager.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
+        session.save(classroom);
+        module.setClassroom(classroom);
         session.save(module);
         transaction.commit();
         session.close();
     }
 
-    public List<Team> listAllClasesInLocation(String location){
-
-        Session session = SessionManager.getSessionFactory().openSession();
-        String hqlQuery = "SELECT Module.team.teamName FROM  Module m  where m.classroom.adress = :location";
-        Query<Team> teamQuery = session.createQuery(hqlQuery);
-        teamQuery.setParameter("location", location);
-        List<Team> teamList = teamQuery.list(); // da rezultatul la Query, afiseaza rezultatul(list)
-        session.close();
-        return teamList;
-
-    }
 }

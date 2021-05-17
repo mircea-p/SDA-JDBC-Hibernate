@@ -7,6 +7,7 @@ import com.sda.mirceapopa.hibernate2.repository.TeamRepository;
 import com.sda.mirceapopa.hibernate2.repository.PersonRepository;
 
 import java.sql.Date;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
@@ -49,11 +50,11 @@ public class Main {
         Classroom classroom1 = new Classroom();
         classroom1.setName("Sala Mihai Eminescu");
         classroom1.setAdress("BucharestCowork");
+        classroomRepository.save(classroom1);
 
         Classroom classroom2 = new Classroom();
         classroom2.setName("Sala Stefan Cel Mare");
         classroom2.setAdress("Medias");
-        classroomRepository.save(classroom1);
         classroomRepository.save(classroom2);
 
         ModuleRepository moduleRepository = new ModuleRepository();
@@ -61,6 +62,16 @@ public class Main {
         module1.setStartDate(Date.valueOf("2021-05-25"));
         module1.setEndDate(Date.valueOf("2021-11-12"));
         moduleRepository.save(module1,classroom1);
+
+        Module module2 = new Module();
+        module2.setStartDate(Date.valueOf("2021-05-25"));
+        module2.setEndDate(Date.valueOf("2021-11-12"));
+        moduleRepository.save(module2,classroom2);
+
+        Team team3 = new Team();
+        team3.setTeamName("Test team for point 3");
+        team3.setModuleList(Arrays.asList(module1));
+        teamRepository.save(team3);
 
 
 
@@ -77,7 +88,7 @@ public class Main {
         //3. List all groups that had classes in location BucharestCowork.
         System.out.println("3. List all groups that had classes in location BucharestCowork.\n---------------------------------------------------------");
 
-        moduleRepository.listAllClasesInLocation("BucharestCowork").forEach(System.out::println);
+        teamRepository.listAllClasesInLocation("BucharestCowork").forEach(System.out::println);
 
        // SessionManager.shutDown();
 
