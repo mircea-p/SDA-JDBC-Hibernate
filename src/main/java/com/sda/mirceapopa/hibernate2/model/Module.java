@@ -17,8 +17,9 @@ public class Module {
     @Column(name = "endDate")
     private Date endDate;
 
-    @ManyToMany(mappedBy = "moduleList")
-    private List<Team> teamList;
+    @ManyToOne
+    @JoinColumn(name = "teamId")
+    private Team team;
 
     @ManyToOne
     @JoinColumn(name = "classroomId")
@@ -58,12 +59,12 @@ public class Module {
         this.classroom = classroom;
     }
 
-    public List<Team> getTeamList() {
-        return teamList;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setTeamList(List<Team> teamList) {
-        this.teamList = teamList;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     @Override

@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -37,7 +38,31 @@ public class TeamRepository {
         {
             for (Module module : classroom.getModuleList())
             {
-                teamSet.addAll(module.getTeamList());
+                teamSet.add(module.getTeam());
+            }
+        }
+
+        session.close();
+        return new ArrayList<>(teamSet);
+
+    }
+
+    public List<Team> listAllClasesInLocationAndDate(String location, Date startDate, Date endDate){
+
+        Session session = SessionManager.getSessionFactory().openSession();
+        String hqlQuery = "FROM Classroom c where c.adress = :location";
+        Query<Classroom> teamQuery = session.createQuery(hqlQuery);
+        teamQuery.setParameter("location", location);
+        List<Classroom> classroomList = teamQuery.list(); // da rezultatul la Query, afiseaza rezultatul(list)
+
+        Set<Team> teamSet = new HashSet<>();
+
+        for (Classroom classroom: classroomList)
+        {
+            for (Module module : classroom.getModuleList())
+            {
+                if(startDate.after(module.getStartDate()) && endDate.before(module.getEndDate())  )
+                teamSet.add(module.getTeam());
             }
         }
 

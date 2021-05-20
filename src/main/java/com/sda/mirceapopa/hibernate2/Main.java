@@ -5,6 +5,7 @@ import com.sda.mirceapopa.hibernate2.repository.ClassroomRepository;
 import com.sda.mirceapopa.hibernate2.repository.ModuleRepository;
 import com.sda.mirceapopa.hibernate2.repository.TeamRepository;
 import com.sda.mirceapopa.hibernate2.repository.PersonRepository;
+import com.sda.mirceapopa.hibernate2.utils.SessionManager;
 
 import java.sql.Date;
 import java.util.Arrays;
@@ -54,7 +55,7 @@ public class Main {
 
         Classroom classroom2 = new Classroom();
         classroom2.setName("Sala Stefan Cel Mare");
-        classroom2.setAdress("Medias");
+        classroom2.setAdress("Tallin Cozy Space");
         classroomRepository.save(classroom2);
 
         ModuleRepository moduleRepository = new ModuleRepository();
@@ -64,14 +65,16 @@ public class Main {
         moduleRepository.save(module1,classroom1);
 
         Module module2 = new Module();
-        module2.setStartDate(Date.valueOf("2021-05-25"));
-        module2.setEndDate(Date.valueOf("2021-11-12"));
+        module2.setStartDate(Date.valueOf("2020-01-25"));
+        module2.setEndDate(Date.valueOf("2020-08-12"));
         moduleRepository.save(module2,classroom2);
 
         Team team3 = new Team();
-        team3.setTeamName("Test team for point 3");
-        team3.setModuleList(Arrays.asList(module1));
+        team3.setTeamName("JavaScript team");
+        team3.getModuleList().add(module1);
         teamRepository.save(team3);
+
+        team1.getModuleList().add(module2);
 
 
 
@@ -90,7 +93,12 @@ public class Main {
 
         teamRepository.listAllClasesInLocation("BucharestCowork").forEach(System.out::println);
 
-       // SessionManager.shutDown();
+        //4. List all groups that had classes in location Tallin Cozy Space in March 2020.
+        System.out.println("4. List all groups that had classes in location Tallin Cozy Space in March 2020.\n---------------------------------------------------------");
+
+        teamRepository.listAllClasesInLocationAndDate("Tallin Cozy Space", Date.valueOf("2020-03-01"),Date.valueOf("2020-03-30")).forEach(System.out::println);
+
+        SessionManager.shutDown();
 
     }
 }

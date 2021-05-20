@@ -19,11 +19,7 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private List<Person> personList;
 
-
-    @ManyToMany
-    @JoinTable(name = "teams_modules",
-    joinColumns = {@JoinColumn(name = "teamId")},
-    inverseJoinColumns = {@JoinColumn(name = "moduleId")})
+    @OneToMany(mappedBy = "team")
     private List<Module> moduleList = new ArrayList<>();
 
     public Integer getTeamId() {
