@@ -57,7 +57,6 @@ public class Classroom {
                 "classroomId=" + classroomId +
                 ", name='" + name + '\'' +
                 ", adress='" + adress + '\'' +
-                ", moduleList=" + moduleList +
                 '}';
     }
 }

@@ -1,10 +1,7 @@
 package com.sda.mirceapopa.hibernate2;
 
 import com.sda.mirceapopa.hibernate2.model.*;
-import com.sda.mirceapopa.hibernate2.repository.ClassroomRepository;
-import com.sda.mirceapopa.hibernate2.repository.ModuleRepository;
-import com.sda.mirceapopa.hibernate2.repository.TeamRepository;
-import com.sda.mirceapopa.hibernate2.repository.PersonRepository;
+import com.sda.mirceapopa.hibernate2.repository.*;
 import com.sda.mirceapopa.hibernate2.utils.SessionManager;
 
 import java.sql.Date;
@@ -19,11 +16,24 @@ public class Main {
 
         Team team1 = new Team();
         team1.setTeamName("Python1Tallin");
+        teamRepository.save(team1);
+
         Team team2 = new Team();
         team2.setTeamName("JavaRemoteRo2020");
-
-        teamRepository.save(team1);
         teamRepository.save(team2);
+
+        Team team3 = new Team();
+        team3.setTeamName("JavaScript team");
+        teamRepository.save(team3);
+
+        TopicRepository topicRepository = new TopicRepository();
+
+        Topic topic1 = new Topic("SQL");
+        topicRepository.save(topic1);
+
+        Topic topic2 = new Topic("Java Advanced");
+        topicRepository.save(topic2);
+
 
         PersonRepository personRepository= new PersonRepository();
 
@@ -58,23 +68,18 @@ public class Main {
         classroom2.setAdress("Tallin Cozy Space");
         classroomRepository.save(classroom2);
 
+        //---------------------------------------------------------------------
+
         ModuleRepository moduleRepository = new ModuleRepository();
         Module module1 = new Module();
         module1.setStartDate(Date.valueOf("2021-05-25"));
         module1.setEndDate(Date.valueOf("2021-11-12"));
-        moduleRepository.save(module1,classroom1);
+        moduleRepository.save(module1,classroom1,team1,topic1);
 
         Module module2 = new Module();
         module2.setStartDate(Date.valueOf("2020-01-25"));
         module2.setEndDate(Date.valueOf("2020-08-12"));
-        moduleRepository.save(module2,classroom2);
-
-        Team team3 = new Team();
-        team3.setTeamName("JavaScript team");
-        team3.getModuleList().add(module1);
-        teamRepository.save(team3);
-
-        team1.getModuleList().add(module2);
+        moduleRepository.save(module2,classroom2,team3, topic2);
 
 
 
@@ -97,6 +102,9 @@ public class Main {
         System.out.println("4. List all groups that had classes in location Tallin Cozy Space in March 2020.\n---------------------------------------------------------");
 
         teamRepository.listAllClasesInLocationAndDate("Tallin Cozy Space", Date.valueOf("2020-03-01"),Date.valueOf("2020-03-30")).forEach(System.out::println);
+
+        //5. List all students that already finished the SQL module.
+
 
         SessionManager.shutDown();
 

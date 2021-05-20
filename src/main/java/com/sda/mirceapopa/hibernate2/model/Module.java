@@ -25,6 +25,10 @@ public class Module {
     @JoinColumn(name = "classroomId")
     private Classroom classroom;
 
+    @ManyToOne
+    @JoinColumn(name = "topic_id")
+    private Topic topic;
+
     public Integer getModuleId() {
         return moduleId;
     }
@@ -49,8 +53,6 @@ public class Module {
         this.endDate = endDate;
     }
 
-
-
     public Classroom getClassroom() {
         return classroom;
     }
@@ -65,6 +67,14 @@ public class Module {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
 
     @Override
